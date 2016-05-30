@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "供应商管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+        <style type="text/css">
+            div#navigation{background:white}
+            div#wrapper{float:right;width:100%;margin-left:-185px}
+            div#content{margin-left:185px}
+            div#navigation{float:left;width:180px}
+            .datagrid-cell a{color:black;}
+            .datagrid-cell a:hover{color:red;}
+        </style>
+}
+
+@section scripts{
+        <script src="~/Areas/Pms/ViewModels/pms.com.js"></script>
+        <script src="~/Areas/pms/ViewModels/pms.merchantSearchEdit.js"></script>
+@*        <script src="~/Areas/Pms/ViewModels/pms.viewModel.searchEdit.js"></script>*@
+        <script type="text/javascript">
+            using(['validatebox','combobox','datebox']);
+            var data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+            //var viewModel=pms.viewModel.search;
+            ko.bindingViewModel(new viewModel(data));
+            //ko.bindingViewModel(new pms.viewModel.searchEdit(data));
+          
+            function formatterCombobox(value) {//zz设置供应商级别下拉框文字显示
+                var d=data.dataSource.ProvLvs;
+                if (value == 0) {
+                    return;
+                } 
+                for (var i = 0; i < d.length; i++) {
+                    if (d[i].value == value) {
+                        return d[i].text;
+                    }
+                }
+            };
+        </script>
+}
+
+<div id="container">
+    <div id="wrapper">
+        <div id="content">
+            <div class="z-toolbar">
+                <a href="#" plain="true" class="easyui-linkbutton"  icon="icon-arrow_refresh"   title="刷新" data-bind="click:refreshClick">刷新</a>
+                <a href="#" plain="true" class="easyui-linkbutton"  icon="icon-add"             title="新增" data-bind="click:addClick"    >新增</a>
+                <a href="#" plain="true" class="easyui-linkbutton"  icon="icon-edit"            title="编辑" data-bind="click:editClick"   >编辑</a>
+                <a href="#" plain="true" class="easyui-linkbutton"  icon="icon-cross"           title="删除" data-bind="click:deleteClick" >删除</a>
+                <a href="#" plain="true" class="easyui-linkbutton"  icon="icon-save"            title="保存" data-bind="click:saveClick"   >保存</a>
+                <a href="#" plain="true" class="easyui-linkbutton"  icon="icon-node_tree"       title ="管理类别" data-bind="click:typeClick" id="a_typeSave" >管理类别</a>
+                <a href="#" plain="true" class="easyui-splitbutton" data-options="menu:'#dropdown',iconCls:'icon-download'"                >导出</a>
+            </div>
+            <div id="dropdown" style="width:100px;display:none;">
+                <div data-options="iconCls:'icon-ext-xls'"      suffix="xls"    data-bind="click:downloadClick">Excel2003   </div>
+                <div data-options="iconCls:'icon-page_excel'"   suffix="xlsx"   data-bind="click:downloadClick">Excel2007   </div>
+                <div data-options="iconCls:'icon-ext-doc'"      suffix="doc"    data-bind="click:downloadClick">Word2003    </div>
+            </div>
+            
+            <div id="condition" class="container_12" style="position:relative;">
+                <div class="grid_1 lbl">供应商名称</div>
+                <div class="grid_2 val"><input type="text" data-bind="value:form.MerchantsName" class="z-txt"/></div>
+                <div class="grid_1 lbl">供应商编码</div>
+                <div class="grid_2 val"><input type="text" data-bind="value:form.MerchantsCode" class="z-txt" /></div>
+   
+                <div class="clear"></div>
+
+                <div class="grid_1 lbl">供应商类别</div>
+                <div class="grid_2 val"><input type="text" @*data-bind="datasource:dataSource.UnitItems ,comboboxValue:form.Unit"*@ class="z-txt easyui-combobox" data-options="showblank:true"/></div>
+                <div class="grid_1 lbl">创建时间</div>
+                <div class="grid_2 val"><input type="text" data-bind="value:form.BuildDate" class="easyui-daterange z-txt" /></div>
+ 
+                <div class="clear"></div>
+
+                <div class="prefix_9" style="position:absolute;top:5px;height:0;">  
+                    <a id="a_search" href="#" class="buttonHuge button-blue" data-bind="click:searchClick" style="margin:0 15px;">查询</a> 
+                    <a id="a_reset"  href="#" class="buttonHuge button-blue" data-bind="click:clearClick">清空</a>
+                </div>
+            </div>
+
+            <table id="gridlist" data-bind="datagrid:grid">
+                 <thead>  
+                    <tr>  
+                        <th field="MerchantsCode"       sortable="true" align="left"    width="100"  editor="{type:'validatebox',options:{required:true}}"  >编码  </th> 
+                        <th field="MerchantsName"       sortable="true" align="left"    width="250"  editor="{type:'validatebox',options:{required:true}}"  >名称    </th> 
+                        <th field="ChargePerson"               sortable="true" align="left"    width="100"  editor="text"  >法人   </th>  
+                        <th field="ChargeTel"                sortable="true" align="left"    width="100"  editor="text"  >法人电话     </th>  
+                        <th field="QualificationLevel"               sortable="true" align="left"    width="100" formatter="formatterCombobox"  editor="{type:'combobox',options:{data:data.dataSource.ProvLvs,panelHeight:'auto'}}">供应商级别   </th> 
+                        <th field="ContactPerson"               sortable="true" align="left"    width="100"  editor="text"  >联系人   </th>  
+                        <th field="ContactTel"                sortable="true" align="left"    width="100"  editor="text"  >联系电话     </th> 
+                        <th field="ContactPostCode"               sortable="true" align="left"    width="100"  editor="text"  >邮编   </th> 
+                        <th field="ContactFax"               sortable="true" align="left"    width="100"  editor="text"  >传真   </th> 
+                        <th field="EMail"               sortable="true" align="left"    width="100"  editor="text"  >电邮   </th> 
+                        <th field="RegisterFund"               sortable="true" align="left"    width="100"  editor="text"  >注册资本   </th> 
+                        <th field="BuildDate"               sortable="true" align="left"    width="100" formatter="com.formatDate" editor="datebox"  >成立日期   </th> 
+                        <th field="BusinessLicence"               sortable="true" align="left"    width="100"  editor="text"  >营业执照注册号   </th> 
+                        <th field="OrganizationCodeCertificate"               sortable="true" align="left"    width="100"  editor="text"  >组织机构代码   </th> 
+                        <th field="TaxRegistrationCertificateNo"               sortable="true" align="left"    width="100"  editor="text"  >税务登记号   </th> 
+                        <th field="BusinessLicenceExpDate"               sortable="true" align="left"    width="100"  editor="text"  >有效期   </th> 
+                        <th field="BusinessType"               sortable="true" align="left"    width="100"  editor="text"  >公司类型   </th> 
+                        <th field="GeneralTaxpayer"  sortable="true" align="center"    width="70" formatter="com.formatCheckbox"  editor="{type:'checkbox',options:{on:true,off:false}}"  >一般纳税人   </th>
+                        <th field="ContactAddr"               sortable="true" align="left"    width="100"  editor="text"  >公司地址   </th> 
+                        <th field="WebSite"               sortable="true" align="left"    width="100"  editor="text"  >公司网站   </th> 
+                        <th field="Bank"               sortable="true" align="left"    width="100"  editor="text"  >开户银行   </th>
+                        <th field="BankAccount"               sortable="true" align="left"    width="100"  editor="text"  >银行账号   </th>
+                        <th field="BusinessScope"               sortable="true" align="left"    width="100" formatter="com.formatTooltip" editor="text"  >经营范围   </th>
+                        <th field="Remark"               sortable="true" align="left"    width="100" formatter="com.formatTooltip"  editor="text"  >备注   </th>
+                    </tr>                            
+                </thead>      
+            </table> 
+        </div>
+    </div>
+    <div id="navigation">
+        <div title="客商类别" style="width: 180px;" class="easyui-panel" data-options="title: '客商类别', iconCls: 'icon-node_tree', height: $(window).height() - 4 ">
+            <ul data-bind="easyuiTree:tree"></ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="type-template">
+    <style type="text/css">
+        .datagrid-wrap{border-width:0 0 1px 0;}
+        .datagrid-toolbar{background-color:#E0ECFF !important}
+    </style>
+
+    <table data-bind="datagrid:grid">
+        <thead>
+            <th field="MerchantsTypeCode"        sortable="true" align="left"    width="120" editor="{type:'validatebox',options:{required:true}}">类别编码</th>
+            <th field="MerchantsTypeName"    sortable="true" align="left"    width="150" editor="{type:'validatebox',options:{required:true}}">类别名称</th>
+            <th field="MerchantsProperty"     sortable="true" align="left"    width="100" editor="text"  >属性   </th>  
+            <th field="Remark"             sortable="true" align="right"   width="160"  editor="text">备注       </th>  
+        </thead>
+    </table>
+
+    <div style="text-align: center; margin: 5px;">
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" data-bind="click:confirmClick" href="javascript:void(0)">确定</a>
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-bind="click:cancelClick" href="javascript:void(0)">取消</a>
+    </div>
+</script> 
+        
+ 

@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{29776B77-E37C-43E2-A1A8-5281870C7CFE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Chama.Core</RootNamespace>
+    <AssemblyName>Chama.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Args\DeleteEventArgs.cs" />
+    <Compile Include="Args\EditEventArgs.cs" />
+    <Compile Include="Args\EditPageEventArgs.cs" />
+    <Compile Include="Args\InsertEventArgs.cs" />
+    <Compile Include="Args\UpdateEventArgs.cs" />
+    <Compile Include="Base\LoginerBase.cs" />
+    <Compile Include="Base\ModelBase.cs" />
+    <Compile Include="Base\ServiceBase.cs" />
+    <Compile Include="Base\ServiceBaseDelete.cs" />
+    <Compile Include="Base\ServiceBaseEdit.cs" />
+    <Compile Include="Base\ServiceBaseEditPage.cs" />
+    <Compile Include="Base\ServiceBaseInsert.cs" />
+    <Compile Include="Base\ServiceBaseLog.cs" />
+    <Compile Include="Base\ServiceBaseQuery.cs" />
+    <Compile Include="Base\ServiceBaseUpdate.cs" />
+    <Compile Include="Base\ServiceBaseUtils.cs" />
+    <Compile Include="Core\APP.cs" />
+    <Compile Include="Core\Attribute.cs" />
+    <Compile Include="Core\Compare.cs" />
+    <Compile Include="Core\Db.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\FormsAuth.cs" />
+    <Compile Include="Core\NewKey.cs" />
+    <Compile Include="Core\PinYin.cs" />
+    <Compile Include="Core\ZException.cs" />
+    <Compile Include="Core\ZMessage.cs" />
+    <Compile Include="Enum\DownloadType.cs" />
+    <Compile Include="Enum\ErrorHandleType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Enum\FileSuffix.cs" />
+    <Compile Include="Enum\MsgType.cs" />
+    <Compile Include="Enum\OptType.cs" />
+    <Compile Include="Enum\ServiceType.cs" />
+    <Compile Include="Enum\TabType.cs" />
+    <Compile Include="Exporter\ApiData.cs" />
+    <Compile Include="Exporter\Column.cs" />
+    <Compile Include="Exporter\Exporter.cs" />
+    <Compile Include="Exporter\HtmlDocExport.cs" />
+    <Compile Include="Exporter\ICompress.cs" />
+    <Compile Include="Exporter\IDataGetter.cs" />
+    <Compile Include="Exporter\IExport.cs" />
+    <Compile Include="Exporter\IFormatter.cs" />
+    <Compile Include="Exporter\NoneCompress.cs" />
+    <Compile Include="Exporter\NoneFormatter.cs" />
+    <Compile Include="Exporter\PdfExport.cs" />
+    <Compile Include="Exporter\SexFormatter.cs" />
+    <Compile Include="Exporter\XlsExport.cs" />
+    <Compile Include="Exporter\XlsxExport.cs" />
+    <Compile Include="Exporter\ZipCompress.cs" />
+    <Compile Include="Generator\Entity\Table.cs" />
+    <Compile Include="Generator\Entity\TableKey.cs" />
+    <Compile Include="Generator\Entity\TableSchema.cs" />
+    <Compile Include="Generator\GenTables.cs" />
+    <Compile Include="Generator\Providers\ISqlGen.cs" />
+    <Compile Include="Generator\Providers\Oracle.cs" />
+    <Compile Include="Generator\Providers\SqlServer.cs" />
+    <Compile Include="Generator\Util.cs" />
+    <Compile Include="Logs\LogHelper.cs" />
+    <Compile Include="Logs\LogReader.cs" />
+    <Compile Include="Param\ParamDelete.cs" />
+    <Compile Include="Param\ParamDeleteData.cs" />
+    <Compile Include="Param\ParamInsert.cs" />
+    <Compile Include="Param\ParamInsertData.cs" />
+    <Compile Include="Param\ParamQuery.cs" />
+    <Compile Include="Param\ParamQueryData.cs" />
+    <Compile Include="Param\ParamSP.cs" />
+    <Compile Include="Param\ParamSPData.cs" />
+    <Compile Include="Param\ParamUpdate.cs" />
+    <Compile Include="Param\ParamUpdateData.cs" />
+    <Compile Include="Param\ParamUtils.cs" />
+    <Compile Include="Param\ParamWhere.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request\RequestWrapper.cs" />
+    <Compile Include="Request\RequestWrapperConvert.cs" />
+    <Compile Include="Request\RequestWrapperMethods.cs" />
+    <Compile Include="Request\RequestWrapperService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chama.Data\Chama.Data.csproj">
+      <Project>{452333c0-314d-4c52-8a6c-e53f29359cbc}</Project>
+      <Name>Chama.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chama.Utils\Chama.Utils.csproj">
+      <Project>{2a80c117-1bd7-4b41-bab9-75601bf18121}</Project>
+      <Name>Chama.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Logs\Default.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
